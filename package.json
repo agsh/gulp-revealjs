@@ -1,0 +1,98 @@
+{
+  "name": "gulp-revealjs",
+  "version": "0.0.1",
+  "description": "Way to make slides with gulp wrapper for reveal.js ",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/agsh/gulp-revealjs"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "gulp-util": "^2.2.20",
+    "ncp": "^2.0.0",
+    "through2": "^0.4.2"
+  },
+  "jscsConfig": {
+    "requireCurlyBraces": [
+      "if",
+      "else",
+      "for",
+      "while",
+      "do",
+      "try",
+      "catch"
+    ],
+    "requireSpaceAfterKeywords": [
+      "do",
+      "for",
+      "if",
+      "else",
+      "switch",
+      "case",
+      "try",
+      "void",
+      "while",
+      "with",
+      "return",
+      "typeof"
+    ],
+    "requireSpacesInFunctionExpression": {
+      "beforeOpeningCurlyBrace": true
+    },
+    "disallowSpacesInFunctionExpression": {
+      "beforeOpeningRoundBrace": true
+    },
+    "disallowSpacesInCallExpression": true,
+    "requireSpaceBeforeBinaryOperators": [
+      "+",
+      "-",
+      "/",
+      "*",
+      "=",
+      "==",
+      "===",
+      "!=",
+      "!=="
+    ],
+    "disallowSpaceAfterPrefixUnaryOperators": [
+      "++",
+      "--",
+      "+",
+      "-"
+    ],
+    "disallowSpaceBeforePostfixUnaryOperators": [
+      "++",
+      "--"
+    ],
+    "disallowKeywords": [
+      "with"
+    ],
+    "disallowKeywordsOnNewLine": [
+      "else"
+    ],
+    "disallowSpaceAfterObjectKeys": true,
+    "validateLineBreaks": "LF",
+    "validateIndentation": "\t",
+    "disallowMixedSpacesAndTabs": true,
+    "requireSpacesInConditionalExpression": {
+      "afterTest": true,
+      "beforeConsequent": true,
+      "afterConsequent": true,
+      "beforeAlternate": true
+    }
+  },
+  "jshintConfig": {
+    "curly": true,
+    "esnext": true,
+    "node": true,
+    "sub": true,
+    "laxbreak": true,
+    "laxcomma": true,
+    "undef": true,
+    "-W038": true
+  }
+}
