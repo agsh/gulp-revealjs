@@ -12,10 +12,9 @@
   },
   "main": "index.js",
   "dependencies": {
-    "glob": "^7.0.6",
     "gulp-util": "^2.2.20",
     "through2": "^0.4.2",
-    "vinyl-file": "^2.0.0"
+    "vinyl-read": "^1.0.0"
   },
   "jscsConfig": {
     "requireCurlyBraces": [
