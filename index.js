@@ -2,10 +2,9 @@ const
 	PLUGIN_NAME = 'revealjs'
 	, through = require('through2')
 	, gutil = require('gulp-util')
-	, glob = require('glob')
-	, vinylFile = require('vinyl-file')
 	, vinylRead = require('vinyl-read')
 	, path = require('path')
+	, fs = require('fs')
 	;
 
 function streamEnd(callback) {
@@ -18,16 +17,28 @@ function streamEnd(callback) {
 	});
 }
 
-module.exports = (options = {}) => through.obj(function(file, encoding, callback) {
-	if (file.isNull()) {
-		// nothing to do
-		return callback(null, file);
-	}
+module.exports = (options = {
+	revealPath: 'reveal.js/'
+}) => {
+	const template = gutil.template(fs.readFileSync(__dirname + '/template.html').toString());
 
-	if (file.isStream()) {
-		this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Streams not supported!'));
-	} else if (file.isBuffer()) {
-		file.contents = Buffer('hello');
-		return callback(null, file);
-	}
-}, streamEnd);
+	return through.obj(function(file, encoding, callback) {
+		if (file.isNull()) {
+			// nothing to do
+			return callback(null, file);
+		}
+
+		if (file.isStream()) {
+			this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Streams not supported!'));
+		} else if (file.isBuffer()) {
+			file.contents = Buffer(
+				template({
+					contents: file.contents.toString()
+					, revealPath: options.revealPath
+					, file: null
+				})
+			);
+			return callback(null, file);
+		}
+	}, streamEnd);
+};
