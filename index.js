@@ -14,9 +14,15 @@ function streamEnd(callback) {
 			this.push(file);
 		});
 		callback();
-	});
+	}).catch(callback);
 }
 
+/**
+ *
+ * @param {object} options
+ * @param {string} [options.revealPath]
+ * @returns {*}
+ */
 module.exports = (options = {
 	revealPath: 'reveal.js/'
 }) => {
@@ -35,6 +41,7 @@ module.exports = (options = {
 				template({
 					contents: file.contents.toString()
 					, revealPath: options.revealPath
+					, title: path.basename(file.path, '.html')
 					, file: null
 				})
 			);
