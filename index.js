@@ -37,14 +37,16 @@ module.exports = (options = {
 		if (file.isStream()) {
 			this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Streams not supported!'));
 		} else if (file.isBuffer()) {
-			file.contents = Buffer(
-				template({
-					contents: file.contents.toString()
-					, revealPath: options.revealPath
-					, title: path.basename(file.path, '.html')
-					, file: null
-				})
-			);
+			if (path.extname(file.path) === '.html') {
+				file.contents = Buffer(
+					template({
+						contents: file.contents.toString()
+						, revealPath: options.revealPath
+						, title: path.basename(file.path, '.html')
+						, file: null
+					})
+				);
+			}
 			return callback(null, file);
 		}
 	}, streamEnd);
