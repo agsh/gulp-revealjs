@@ -5,6 +5,7 @@ const
 	, vinylRead = require('vinyl-read')
 	, path = require('path')
 	, fs = require('fs')
+	, extend = require('util')._extend
 	;
 
 function streamEnd(callback) {
@@ -25,6 +26,7 @@ function streamEnd(callback) {
  */
 module.exports = (options = {
 	revealPath: 'reveal.js/'
+	, revealOptions: {}
 }) => {
 	const template = gutil.template(fs.readFileSync(__dirname + '/template.html').toString());
 
@@ -42,6 +44,16 @@ module.exports = (options = {
 					template({
 						contents: file.contents.toString()
 						, revealPath: options.revealPath
+						, revealOptions: extend({
+							history: true,
+							mouseWheel: true,
+							dependencies: [
+								{ src: 'reveal.js/plugin/markdown/marked.js' },
+								{ src: 'reveal.js/plugin/markdown/markdown.js' },
+								{ src: 'reveal.js/plugin/notes/notes.js', async: true },
+								{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+							]
+						}, options.revealOptions)
 						, title: path.basename(file.path, '.html')
 						, file: null
 					})

@@ -1,6 +1,6 @@
 {
   "name": "gulp-revealjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Way to make slides with gulp wrapper for reveal.js ",
   "license": "MIT",
   "repository": {
@@ -13,6 +13,7 @@
   "main": "index.js",
   "dependencies": {
     "gulp-util": "^2.2.20",
+    "javascript-stringify": "^1.4.0",
     "through2": "^0.4.2",
     "vinyl-read": "^1.0.0"
   },
