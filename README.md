@@ -20,3 +20,8 @@ gulp.task('slides', () => gulp.src('sources/*.pug')
 	.pipe(gulp.dest('slides/'))
 );
 ```
+
+# Options
+* revealPath {string} - Path for reveal.js library if you don't want 
+to use bundled version
+* revealOptions {object} - Object passed to `Reveal.initialize` constructor
