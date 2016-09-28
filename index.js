@@ -6,6 +6,7 @@ const
 	, path = require('path')
 	, fs = require('fs')
 	, extend = require('util')._extend
+	, stringify = require('javascript-stringify')
 	;
 
 function streamEnd(callback) {
@@ -22,12 +23,10 @@ function streamEnd(callback) {
  *
  * @param {object} options
  * @param {string} [options.revealPath]
+ * @param {object} [options.revealOptions]
  * @returns {*}
  */
-module.exports = (options = {
-	revealPath: 'reveal.js/'
-	, revealOptions: {}
-}) => {
+module.exports = (options) => {
 	const template = gutil.template(fs.readFileSync(__dirname + '/template.html').toString());
 
 	return through.obj(function(file, encoding, callback) {
@@ -35,7 +34,6 @@ module.exports = (options = {
 			// nothing to do
 			return callback(null, file);
 		}
-
 		if (file.isStream()) {
 			this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Streams not supported!'));
 		} else if (file.isBuffer()) {
@@ -43,17 +41,16 @@ module.exports = (options = {
 				file.contents = Buffer(
 					template({
 						contents: file.contents.toString()
-						, revealPath: options.revealPath
-						, revealOptions: extend({
+						, revealPath: options.revealPath || 'reveal.js/'
+						, revealOptions: stringify(extend({
 							history: true,
-							mouseWheel: true,
 							dependencies: [
 								{ src: 'reveal.js/plugin/markdown/marked.js' },
 								{ src: 'reveal.js/plugin/markdown/markdown.js' },
 								{ src: 'reveal.js/plugin/notes/notes.js', async: true },
 								{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 							]
-						}, options.revealOptions)
+						}, options.revealOptions || {}))
 						, title: path.basename(file.path, '.html')
 						, file: null
 					})
