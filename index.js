@@ -38,7 +38,7 @@ module.exports = (options) => {
 			this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Streams not supported!'));
 		} else if (file.isBuffer()) {
 			if (path.extname(file.path) === '.html') {
-				file.contents = Buffer(
+				file.contents = new Buffer(
 					template({
 						contents: file.contents.toString()
 						, revealPath: options.revealPath || 'reveal.js/'
